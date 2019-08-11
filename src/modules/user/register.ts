@@ -4,13 +4,17 @@ import {
   Mutation,
   Arg,
   FieldResolver,
-  Root
+  Root,
+  UseMiddleware
 } from "type-graphql";
 import { User } from "../../entity/User";
 import { RegisterUserInpput } from "./types";
+import { IsAuth } from "../../middlewares/isAuth";
 
 @Resolver(User)
 export class RegisterResolver {
+
+  @UseMiddleware(IsAuth)
   @Query(() => String)
   async hello() {
     return "Hello World";

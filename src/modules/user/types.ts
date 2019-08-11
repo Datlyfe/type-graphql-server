@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { InputType, Field } from "type-graphql";
 import { User } from "../../entity/User";
 
@@ -12,3 +13,9 @@ export class RegisterUserInpput implements Partial<User> {
   @Field()
   password: string;
 }
+
+
+export interface MyContext {
+  req: Request;
+}
+

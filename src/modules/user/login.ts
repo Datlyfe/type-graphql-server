@@ -1,10 +1,6 @@
 import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import { User } from "../../entity/User";
-import { Request } from "express";
-
-interface MyContext {
-  req: Request;
-}
+import { MyContext } from "./types";
 
 @Resolver(User)
 export class LoginResolver {
