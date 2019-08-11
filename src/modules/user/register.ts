@@ -16,9 +16,10 @@ export class RegisterResolver {
     return "Hello World";
   }
 
-  @Query(()=> User)
-  async getUser(){
-    
+  @Query(() => [User])
+  async users(): Promise<User[]> {
+    const users = await User.find();
+    return users;
   }
 
   @FieldResolver()
