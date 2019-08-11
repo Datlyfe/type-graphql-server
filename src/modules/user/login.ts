@@ -1,4 +1,5 @@
 import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
+import bcrypt from "bcrypt";
 import { User } from "../../entity/User";
 import { MyContext } from "./types";
 
@@ -13,13 +14,13 @@ export class LoginResolver {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return null;
+      throw new Error("Failed Login")
     }
 
-    const valid = password === user.password;
+    const valid = await bcrypt.compare(password, user.password);
 
     if (!valid) {
-      return null;
+      throw new Error("Failed Login")
     }
 
     ctx.req.session!.userId = user.id;
