@@ -14,13 +14,13 @@ export class LoginResolver {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      throw new Error("Failed Login")
+      throw new Error("Failed login")
     }
 
     const valid = await bcrypt.compare(password, user.password);
 
     if (!valid) {
-      throw new Error("Failed Login")
+      throw new Error("Failed login")
     }
 
     ctx.req.session!.userId = user.id;

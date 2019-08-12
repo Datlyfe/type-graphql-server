@@ -10,6 +10,7 @@ import { createConnection } from "typeorm";
 import { RegisterResolver } from "./modules/user/register";
 import { redis } from "./redis";
 import { LoginResolver } from "./modules/user/login";
+import { LogoutResolver } from "./modules/user/lougout";
 
 const PORT = process.env.PORT || 5000;
 
@@ -17,12 +18,12 @@ const startServer = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver]
+    resolvers: [RegisterResolver, LoginResolver, LogoutResolver]
   });
 
   const apolloServer = new ApolloServer({
     schema,
-    context: ({ req }: any) => ({ req })
+    context: ({ req, res }: any) => ({ req, res })
   });
 
   const app = Express();
